@@ -12,7 +12,7 @@ def exec_cmd(cmd):
   if cmd == "list routes":
     subprocess.run(['./list_routes.sh'], shell=True)
     return
-  if cmd == "bridge create":
+  if cmd == "create bridge":
     subprocess.run(['./bridge_create.sh'], shell=True)
     return
   if cmd == "configure ip":
