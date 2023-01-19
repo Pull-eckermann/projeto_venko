@@ -1,5 +1,6 @@
 import subprocess
 import getpass
+import hashlib
 
 def exec_cmd(cmd):
   #Switch case para os comandos
@@ -24,17 +25,22 @@ def exec_cmd(cmd):
   print('ERRO: Comando inválido')
   return
 #----------------------------------------------------------------------
+def hash_passw(passw):
+  hashed_passw = hashlib.sha256(passw.encode()).hexdigest()
+  return hashed_passw
+
 def autentication():
   #Sistema de login e senha
   secret_log = "admin"
-  secreet_pass = "ngk777*"
+  #Senha cifrada com tabela hash
+  hashed_passw = "bfe9065b538472c89fba94715a79bc3b7963223f19c1a4cf0c1caf7afa01a296"
 
   for i in range(0,3):
     login = input('Login: ')
     if login == secret_log:
       for i in range(0,3):
         passw = getpass.getpass("Senha: ")
-        if passw == secreet_pass:
+        if hash_passw(passw) == hashed_passw:
           return #Login e senha estão corretos
         else:
           print('Senha incorreta, tente novamente')
