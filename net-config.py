@@ -14,10 +14,15 @@ def exec_cmd(cmd):
     subprocess.run(['./list_routes.sh'], shell=True)
     return
   if cmd == "create bridge":
-    subprocess.run(['./bridge_create.sh'], shell=True)
+    print("Este comando irá utilizar privilégios de super usuário")
+    subprocess.run(['sudo ./bridge_create.sh'], shell=True)
     return
   if cmd == "configure ip":
-    subprocess.run(['./configure_ip.sh'], shell=True)
+    intf = input("Interface: ")
+    ip = input("Novo IP: ")
+    print("Este comando irá utilizar privilégios de super usuário")
+    command = 'sudo ifconfig '+intf+' '+ip+' netmask 255.255.255.0'
+    subprocess.run([command], shell=True)
     return
   #Caso em que não existe o comando digitado 
   if cmd == "":
