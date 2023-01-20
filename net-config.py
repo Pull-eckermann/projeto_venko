@@ -1,32 +1,67 @@
-import subprocess
+import subprocess as subp
 import getpass
 import hashlib
 
-def exec_cmd(cmd):
+def exec_cmd(cmd : list):
+  #Caso em que não existe o comando digitado 
+  if not cmd:
+    return
   #Switch case para os comandos
-  if cmd == "quit":
+  if cmd[0] == "quit":
     print('Encerrando o programa...')
     exit(1)
-  if cmd == "list interfaces":
-    subprocess.run(['./list_interfaces.sh'], shell=True)
+  ###################
+  if cmd[0] == "list_interfaces":
+    subp.run(['./list_interfaces.sh'], shell=True)
     return
-  if cmd == "list routes":
-    subprocess.run(['./list_routes.sh'], shell=True)
+  ###################
+  if cmd[0] == "list_routes":
+    subp.run(['./list_routes.sh'], shell=True)
     return
-  if cmd == "create bridge":
-    print("Este comando irá utilizar privilégios de super usuário")
-    subprocess.run(['sudo ./bridge_create.sh'], shell=True)
-    return
-  if cmd == "configure ip":
-    intf = input("Interface: ")
-    ip = input("Novo IP: ")
-    print("Este comando irá utilizar privilégios de super usuário")
-    command = 'sudo ifconfig '+intf+' '+ip+' netmask 255.255.255.0'
-    subprocess.run([command], shell=True)
-    return
-  #Caso em que não existe o comando digitado 
-  if cmd == "":
-    return
+  ###################
+  if cmd[0] == "make_bridge":
+    if len(cmd) == 2:
+      #Coleta a saida stdou gerada pelo comando que contem as interfaces
+      interfaces = subp.check_output(['ifconfig | grep mtu | grep -v "LOOPBACK" | cut -d: -f1'], shell=True, text=True)
+      interfaces = interfaces.split('\n') #Separa as interfaces em uma lista
+      # Confere se a bridge não existe
+      if cmd[1] not in interfaces:
+        print("Este comando irá utilizar privilégios de super usuário")
+        subp.run(['sudo brctl addbr '+cmd[1]+' && sudo ip link set up dev '+cmd[1]], shell=True)
+      else:
+        print('ERRO: A interface de nome '+cmd[1]+' ja existe')
+      return  
+    else:
+      print("ERRO: Por favor especifique o nome da bridge a ser criada")
+      return
+  ###################
+  if cmd[0] == "del_bridge":
+    if len(cmd) == 2:
+      #Coleta a saída stdou gerada pelo comando que contem as interfaces
+      interfaces = subp.check_output(['ifconfig | grep mtu | grep -v "LOOPBACK" | cut -d: -f1'], shell=True, text=True)
+      interfaces = interfaces.split('\n') #Separa as interfaces em uma lista
+      # Confere se a bridge existe
+      if cmd[1] in interfaces:
+        print("Este comando irá utilizar privilégios de super usuário")
+        subp.run(['sudo ip link delete '+cmd[1]+' type bridge '], shell=True)
+      else:
+        print('ERRO: A interface de nome '+cmd[1]+' não existe')
+      return  
+    else:
+      print("ERRO: Por favor especifique o nome da bridge a ser deletada")
+      return
+  ###################
+  if cmd[0] == "configure_ip":
+    #Confere se todos os parametros foram escritos
+    if len(cmd) == 3:
+      print("Este comando irá utilizar privilégios de super usuário")
+      command = 'sudo ifconfig '+cmd[1]+' '+cmd[2]+' netmask 255.255.255.0'
+      subp.run([command], shell=True)
+      return
+    else:
+      print("ERRO: Por favor, especifique a interface a ser alterada e o novo ip")
+      return
+
   print('ERRO: Comando inválido')
   return
 #----------------------------------------------------------------------
@@ -59,11 +94,12 @@ def autentication():
 #----------------------------------------------------------------------
 def main():
   #Chama login e senha do usuário, se não encerrar está tudo certo
-  autentication()
+  #autentication()
   print('\n<====== Bem vindo ao LINUX net-config ver 1.0 ======>')
   while True:
     command = input('>>> ') #Recebe o comando
-    exec_cmd(command)  #Valida o comando e executa
+    cmd = command.split()
+    exec_cmd(cmd)  #Valida o comando e executa
 
 #Function main
 main()
