@@ -13,3 +13,7 @@ Comandos disponíveis:
 - create brigde (Cria uma bridge básica de nome e ip prédefinidos)
 - configure ip (Irá solicirtar Interface e novo ip. Altera o ip expecificado na interface especificada)
 
+Para a execução:
+- Garanta que todos os arquivos estejam na mesma pasta
+- Scripts bash precisam ter permissão de execução
+

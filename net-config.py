@@ -41,7 +41,7 @@ def autentication():
   hashed_passw = "bfe9065b538472c89fba94715a79bc3b7963223f19c1a4cf0c1caf7afa01a296"
 
   for i in range(0,3):
-    login = input('Login: ')
+    login = input('Usuario: ')
     if login == secret_log:
       for i in range(0,3):
         passw = getpass.getpass("Senha: ")
@@ -52,7 +52,7 @@ def autentication():
       print('ERRO: Limite de 3 tentativas da senha excedido, encerrando o programa')
       exit(0)
     else:
-      print('Login incorreto, digite novamente')
+      print('Usuário incorreto, digite novamente')
 
   print('ERRO: Limite de 3 tentativas do login excedido, encerrando o programa')
   exit(0)
