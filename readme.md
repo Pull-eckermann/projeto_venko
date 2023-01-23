@@ -1,6 +1,4 @@
-Sistema para configuração básica em redes.
-
-Sistema criado com referência a distro Linux Ubuntu
+Sistema para configuração básica em redes, criado com referência a distro Linux Ubuntu 22
 
 Para rodar a interface é necessário ter os seguintes pacotes:
 - python3
@@ -8,7 +6,7 @@ Para rodar a interface é necessário ter os seguintes pacotes:
 - brifge-utils
 
 Comandos disponíveis:
-- list_interfaces (Lista todas as interfaces de rede de uma forma amigável ao usuário)
+- list_intf (Lista todas as interfaces de rede de uma forma amigável ao usuário)
 - list_routes (Lista todas as rotas de rede do sistema de uma forma amigável ao usuário)
 - make_brigde (Cria uma bridge básica de nome e ip prédefinidos)
 - del_bridge (Deleta uma bridge expecificada)
