@@ -1,15 +1,16 @@
 #ecoding: UTF-8
-#language: pt
+#language: en
 
-Funcionalidade: Execução de comandos
-  Como administrador do servidor
-  Fulano completou login no programa net-config
-  Para executar comandos de visualização e de configuração de rede
+Feature: Command execution
+  As an server administrator
+  I successfully logged in to net-config program
+  So that i can execute commands on net-config
 
-Contexto: 
-  Dado que Fulano completou login e está na tela de comando
+Background: 
+  Given I successfully logged in
+  And I'm on the command screen
 
-Cenário: Digitar um comando inválido
+Scenario: Digitar um comando inválido
   Quando ele digita e tecla em ENTER com um comando não reconhecido
   Então uma mensagem de erro é exibida indicando um comando inválido, e nada é executado
 
@@ -24,5 +25,3 @@ Cenário: Vizualizar interfaces de Rede
 de estado, mtu, endereço ip e endereço mac
 
 Cenário: Visualizar rotas
-
-
