@@ -3,7 +3,7 @@ Sistema para configuração básica em redes, criado com referência a distro Li
 Para rodar a interface é necessário ter os seguintes pacotes:
 - python3
 - net-tools
-- brifge-utils
+- bridge-utils
 
 Comandos disponíveis:
 - list_intf (Lista todas as interfaces de rede de uma forma amigável ao usuário)
