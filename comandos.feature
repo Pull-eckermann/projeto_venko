@@ -10,18 +10,54 @@ Background:
   Given I successfully logged in
   And I'm on the command screen
 
-Scenario: Digitar um comando inválido
-  Quando ele digita e tecla em ENTER com um comando não reconhecido
-  Então uma mensagem de erro é exibida indicando um comando inválido, e nada é executado
+Scenario: Invalid command
+  When i execute a command that is not recognized
+  Then an error message is displayed indicating that it is a invalid command
 
-Cenário: Teclar em ENTER com a entrada vazia
-  Quando ele tecla em ENTER sem digitar nada na linha de comando
-  Então nada acontece e uma nova linha surge requisitando um comando novo
+  Result:
+  user@name:~/Documentos/projeto_venko$ python3 net-config.py
+  User: admin
+  Password: 
+  
+  <====== Welcome to LINUX net-config ver 1.0 ======>
+  >>> ads
+  ERROR: Invalid command
+  >>> 
 
+Scenario: Empty command
+  When I just hit ENTER button with a empty entrance
+  Then nothing happens and a new line comes out asking for a command
 
-Cenário: Vizualizar interfaces de Rede
-  Quando ele executar o comando "list interfaces"
-  Então As interfaces de rede serão listadas uma abaixo da outra, junto com as informações 
-de estado, mtu, endereço ip e endereço mac
+  Result:
+  user@name:~/Documentos/projeto_venko$ python3 net-config.py
+  User: admin
+  Password: 
+  
+  <====== Welcome to LINUX net-config ver 1.0 ======>
+  >>>
+  >>> 
+  >>>
 
-Cenário: Visualizar rotas
+Scenario: list_routes
+  When I execute the command "list_routes"
+  Then a list of the ip routes is displayed, ordered by static routes, dynamic routes and ethernet route
+
+  Result:
+  user@name:~/Documentos/projeto_venko$ python3 net-config.py
+  User: admin
+  Password: 
+
+  <====== Welcome to LINUX net-config ver 1.0 ======>
+  >>> list_routes
+  ========================Static Routes========================
+   Destination Network          Prox Server            Interface
+               default       192.168.235.39                 wlo1
+  ========================Dynamic Routes========================
+   Destination Network          Prox Server            Interface
+  ==================Bus-connected Routes==================
+   Destination Network            Interface
+        169.254.0.0/16                 wlo1
+      192.168.235.0/24                 wlo1
+  >>> 
+
+Scenario: list_interfaces

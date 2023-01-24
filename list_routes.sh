@@ -9,8 +9,8 @@ for a in `ip route show | grep -v " link " | grep -v " nhid " | cut -d" " -f5`; 
   intf_s+=("$a"); done
 
 tam=${#dest_s[@]}
-echo "========================Rotas estaticas========================"
-printf '%20s %20s %20s\n' 'Rede Destino' 'Prox Servidor' 'Interface'
+echo "========================Static Routes========================"
+printf '%20s %20s %20s\n' 'Destination Network' 'Prox Server' 'Interface'
 for i in $(seq 0 $(($tam -1))); do
   printf '%20s %20s %20s\n' ${dest_s[$i]} ${prox_s[$i]} ${intf_s[$i]}; done
 
@@ -23,8 +23,8 @@ for a in `ip route show | grep -v " link " | grep " nhid " | cut -d" " -f7`; do
   intf_d+=("$a"); done
 
 tam=${#dest_d[@]}
-echo "========================Rotas dinamicas========================"
-printf '%20s %20s %20s\n' 'Rede Destino' 'Prox Servidor' 'Interface'
+echo "========================Dynamic Routes========================"
+printf '%20s %20s %20s\n' 'Destination Network' 'Prox Server' 'Interface'
 for i in $(seq 0 $(($tam -1))); do
   printf '%20s %20s %20s\n' ${dest_d[$i]} ${prox_d[$i]} ${intf_d[$i]}; done
 
@@ -35,8 +35,8 @@ for a in `ip route show | grep " link " | cut -d" " -f3`; do
   intf_b+=("$a"); done
 
 tam=${#dest_b[@]}
-echo "==================Rotas ligadas em barramento=================="
-printf '%20s %20s\n' 'Rede Destino' 'Interface'
+echo "==================Bus-connected Routes=================="
+printf '%20s %20s\n' 'Destination Network' 'Interface'
 for i in $(seq 0 $(($tam -1))); do
   printf '%20s %20s\n' ${dest_b[$i]} ${intf_b[$i]}; done
 
