@@ -7,7 +7,7 @@ Para rodar a interface é necessário ter os seguintes pacotes:
 
 Comandos disponíveis:
 - list_intf (Lista todas as interfaces de rede em ordem alfabética de uma forma amigável ao usuário)
-  -> list_intf ethx (Lista somente as informações da interface expecificada)
+  - list_intf ethx (Lista somente as informações da interface expecificada)
 - list_routes (Lista todas as rotas de rede do sistema de uma forma amigável ao usuário)
 - make_brigde ethx (Cria uma bridge básica com o nome expecificado como parâmetro)
 - del_bridge ethx (Deleta uma bridge expecificada no parâmetro do comando)
