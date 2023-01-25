@@ -27,7 +27,7 @@ def getIp(intf : str):
 def getNetmask(intf : str):
   netm = subp.check_output(["ifconfig "+intf+" | grep ' inet ' | sed 's/        //g' | cut -d' ' -f5"], shell=True, text=True)
   netm = netm.split('\n')
-  return netm[0]
+  return netm[0]  
 
 def getMac(intf : str):
   mac = subp.check_output(["ifconfig "+intf+" | grep ether | sed 's/        //g' | cut -d' ' -f2"], shell=True, text=True)
